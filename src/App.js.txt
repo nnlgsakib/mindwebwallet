@@ -1,0 +1,175 @@
+import React, { useState, useEffect } from "react";
+import { providers } from "ethers";
+import QRCode from "qrcode.react";
+import { ethers } from "ethers";
+import Web3 from "web3";
+import logo from "./logo.png";
+import "./App.css";
+
+function App() {
+  const [address, setAddress] = useState("");
+  const [privateKey, setPrivateKey] = useState("");
+  const [network, setNetwork] = useState("mainnet");
+  const [isLogged, setIsLogged] = useState(false);
+  const [balance, setBalance] = useState(0);
+  const [recipient, setRecipient] = useState("");
+  const [amount, setAmount] = useState("");
+
+  const mainnetProvider = new ethers.providers.JsonRpcProvider(
+    "https://rpc-msc.mindchain.info/"
+  );
+  const testnetProvider = new ethers.providers.JsonRpcProvider(
+    "https://rpc-testnet.mindchain.info:8545"
+  );
+
+  useEffect(() => {
+    if (localStorage.getItem("wallet")) {
+      const wallet = new ethers.Wallet(localStorage.getItem("wallet"));
+      setAddress(wallet.address);
+      setIsLogged(true);
+      updateBalance(wallet.address);
+    }
+  }, []);
+
+  const updateBalance = async (address) => {
+    const balance = await mainnetProvider.getBalance(address);
+    setBalance(Web3.utils.fromWei(balance.toString(), "ether"));
+  };
+
+  const generateNewAddress = () => {
+    const wallet = ethers.Wallet.createRandom();
+    setAddress(wallet.address);
+    setPrivateKey(wallet.privateKey);
+    localStorage.setItem("wallet", wallet.privateKey);
+    setIsLogged(true);
+    updateBalance(wallet.address);
+  };
+
+  const importWallet = (privateKey) => {
+    const wallet = new ethers.Wallet(privateKey);
+    setAddress(wallet.address);
+    setPrivateKey(wallet.privateKey);
+    localStorage.setItem("wallet", privateKey);
+    setIsLogged(true);
+    updateBalance(wallet.address);
+  };
+
+  const switchNetwork = () => {
+    setNetwork(network === "mainnet" ? "testnet" : "mainnet");
+  };
+
+  const copyAddressToClipboard = () => {
+    navigator.clipboard.writeText(address);
+  };
+
+  const exportPrivateKey = () => {
+    alert(`Your private key is: ${privateKey}`);
+  };
+
+  const logoutWallet = () => {
+    localStorage.removeItem("wallet");
+    setAddress("");
+    setPrivateKey("");
+    setIsLogged(false);
+    setBalance(0);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!ethers.utils.isAddress(recipient)) {
+      alert("Invalid recipient address");
+      return;
+    }
+
+    if (isNaN(amount) || parseFloat(amount) <= 0) {
+      alert("Invalid amount");
+      return;
+    }
+
+    const wallet = new ethers.Wallet(privateKey);
+
+    const transaction = {
+      to: recipient,
+      value: ethers.utils.parseEther(amount),
+    };
+
+    try {
+      const tx = await wallet.sendTransaction(transaction);
+      console.log(tx);
+      setRecipient("");
+      setAmount("");
+      alert(`Transaction sent: ${tx.hash}`);
+    } catch (error) {
+      console.error(error);
+      alert("Transaction failed");
+    }
+  };
+
+  return (
+    <div>
+      <h1>Mind Web Wallet</h1>
+      {isLogged ? (
+        <>
+          <div>
+          <img src={logo} alt="logo" style={{ width: "5%" }} />
+
+ 
+            <p>Address:</p>
+            <div className="address">
+              <p>{address}</p>
+              <button onClick={copyAddressToClipboard}>Copy</button>
+            </div>
+            <p>Balance: {balance} MIND </p>
+            <button onClick={exportPrivateKey}>Export Private Key</button>
+            <button onClick={logoutWallet}>Logout</button>
+          </div>
+          <form onSubmit={handleSubmit}>
+            <h2>Send MIND </h2>
+            <label>
+              Recipient Address:
+              <input
+                type="text"
+                value={recipient}
+                onChange={(e) => setRecipient(e.target.value)}
+              />
+            </label>
+            <label>
+              Amount (MIND):
+              <input
+                type="text"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
+            </label>
+            <button type="submit">Send</button>
+          </form>
+        </>
+      ) : (
+        <>
+          <div>
+            <img src={logo} alt="logo" />
+            <button onClick={generateNewAddress}>Generate New Address</button>
+            <form onSubmit={() => importWallet(privateKey)}>
+              <h2>Import Existing Wallet</h2>
+              <label>
+                Private Key:
+                <input
+                  type="text"
+                  value={privateKey}
+                  onChange={(e) => setPrivateKey(e.target.value)}
+                />
+              </label>
+              <button type="submit">Import</button>
+            </form>
+            <button onClick={switchNetwork}>Switch to {network}</button>
+          </div>
+          <QRCode value={address} />
+        </>
+      )}
+    </div>
+  );
+  
+      }
+
+export default App;

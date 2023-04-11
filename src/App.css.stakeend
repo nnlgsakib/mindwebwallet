@@ -1,0 +1,179 @@
+/* Basic styling */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  font-size: 3rem;
+  color: #fff;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+button {
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 2rem;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+div {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+p {
+  font-size: 1.5rem;
+  color: #fff;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  margin-top: 20px;
+  text-align: center;
+}
+
+input[type="text"] {
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 1.5rem;
+  width: 100%;
+  max-width: 500px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+li {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-width: 200px;
+}
+
+li h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  text-align: center;
+  color: #4CAF50;
+}
+
+li p {
+  font-size: 1.5rem;
+  color: #666;
+  text-align: center;
+}
+
+/* Animation for background */
+body::before {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(-45deg, #66CCCC, #FF66CC, #66CC99, #FFCC66);
+  animation: bg-gradient 15s ease infinite;
+}
+
+@keyframes bg-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Responsive styling */
+@media only screen and (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+  button {
+    font-size: 1.5rem;
+  }
+  p {
+    font-size: 1rem;
+  }
+  input[type="text"] {
+    font-size: 1rem;
+    padding: 10px;
+  }
+  li {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-width: 150px; /* reduce min-width /
+    max-width: 300px; / add max-width */
+    }
+    
+    li h2 {
+    font-size: 1.5rem; /* reduce font size */
+    margin-bottom: 10px;
+    text-align: center;
+    color: #4CAF50;
+    }
+    
+    li p {
+    font-size: 1rem; /* reduce font size */
+    color: #666;
+    text-align: center;
+    }
+    
+    div {
+    margin: 10px; /* reduce margin */
+    }
+    
+    ul {
+    margin-top: 10px; /* reduce margin */
+    }
+    
+    }
+    
+    /* Add some padding to the container */
+    .container {
+    padding: 20px;
+    }
+    
+ 
+    .container {
+    max-width: 1200px;
+    margin: 0 auto; 
+    }

@@ -1,0 +1,141 @@
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #000000;
+  color: #FFFFFF;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0.7) 100%),
+    url('https://images.unsplash.com/photo-1610504386805-015b5a5e5c2b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZXRocmFtbWFuJTIwd2FsbGV0fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.container:before,
+.container:after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.8) 20%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0) 75%
+  );
+  z-index: 1;
+  transform: rotate(40deg);
+}
+
+.container:after {
+  transform: rotate(60deg);
+  z-index: 2;
+}
+
+
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+
+img {
+  display: block;
+  margin: 0 auto;
+}
+
+
+button {
+  background-color: #FFFFFF;
+  border: none;
+  color: #000000;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
+p {
+  margin-top: 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+
+#logout-btn {
+  background-color: #FF0000;
+  color: #FFFFFF;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 10px 20px;
+  margin: 10px auto;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: block;
+  width:100%;
+  max-width: 200px;
+  }
+
+.send-mind {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+input[type="text"],
+textarea {
+  font-size: 1rem;
+  padding: 6px;
+  border: none;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  width: 50%;
+}
+
+
+textarea {
+  height: 150px;
+}
+
+
+#send-btn {
+  background-color: #008000;
+  color: #FFFFFF;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 10px 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+#send-btn:hover {
+  background-color: #006600;
+}
