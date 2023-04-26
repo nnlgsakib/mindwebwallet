@@ -19,7 +19,7 @@ function App() {
   useEffect(() => {
     const connectProvider = async () => {
       try {
-        const provider = new ethers.providers.JsonRpcProvider("http://216.155.135.137:8545/");
+        const provider = new ethers.providers.JsonRpcProvider("https://mainnet-rpc.metaviralscan.com");
         setProvider(provider);
         if (localStorage.getItem("privateKey")) {
           const wallet = new ethers.Wallet(localStorage.getItem("privateKey"), provider);
